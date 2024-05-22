@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant GOODBITE</title>
+      <!-- Favicon -->
+  <link rel="icon" href="https://abdelkb.github.io/goodbitee/img/favicon.png" type="image/x-icon">
+  <link rel="shortcut icon" href="https://abdelkb.github.io/goodbitee/img/favicon.png" type="image/x-icon">
+    <!-- Ajouter les liens vers les fichiers CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Ajouter le lien vers le fichier CSS personnalisé -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@400;700&display=swap">
+    <style>
+
+        #loading-overlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 1); /* Fond blanc semi-transparent */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000; /* Assure que l'overlay est au-dessus de tout le reste */
+        }
+
+        #loading-spinner {
+            border: 8px solid #FFB700; /* Couleur de fond pour le spinner */
+            border-top: 8px solid #D2042D; /* Couleur pour la partie visible du spinner */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 0.5s linear infinite; /* Animation de rotation du spinner */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Ajouter des styles personnalisés ici si nécessaire */
+        body {
+            font-family: 'Roboto', sans-serif; /* Utilisez Roboto comme police par défaut */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            max-height: 100;
+        }
+
+        #slider {
+            max-width: 600px;
+            margin: 20px auto;
+            margin-top: 100px;
+        }
+
+        footer {
+            width: 100%;
+            background-color: black;
+            color: white;
+            margin-top: 30px;
+        }
+
+
+        .nav-item {
+            background-color: #FFB700;
+            margin: 5px;
+            border-radius: 10px;
+            margin-bottom: 3px;
+            width: auto;
+            height: auto;
+            text-align: center;
+        }
+
+        .nav-item:hover {
+            background-color: #facb53;
+        }
+
+        .nav-link {
+            font-size: large;
+            margin-left: 5px;
+            margin-right: 5px;
+            min-width: 70px;
+            color: #D2042D;
+        }
+
+        .nav-link:hover {
+            color: #d32c4d;
+        }
+        #slider-content{
+            text-align: center;
+        }
+        #slider-content img {
+            border-radius: 40px;
+            padding: 5px;
+            max-height: 65vh;
+            max-width: auto;
+            margin-bottom: 190px;
+        }
+        #slider-content p {
+            color: #1f1f1f;
+            text-align: center;
+        }
+        #slider-content h6 {
+            text-align: center;
+            color: #1f1f1f;
+            text-decoration: solid;
+            font-weight: bold;
+        }
+        #slider-content h5 {
+
+            color: #D2042D;
+            padding-top: 0;
+            font-size: 25px;
+            text-align: center;
+            background-color: #FFB700;
+            border-radius: 30px;
+            padding: 7px;
+            width: auto;
+        }
+
+
+                /* Styles pour les icônes du carousel */
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: #1f1f1f; /* Couleur spécifique pour les icônes */
+            border-radius: 3px;
+            height: 20px;
+            width: 20px;
+        }
+        .nav-list {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            list-style: none;
+            margin-top: 54px;
+            padding-bottom: 5px;
+            
+        }
+        .scrollable-nav {
+    width: 100%; /* Ou une largeur fixe en pixels, pour ajuster selon vos besoins */
+    overflow-x: auto;
+}
+
+    </style>
+</head>
+
+<body>
+
+    <div id="loading-overlay">
+        <div style="margin-right: 10px;"> <img src="https://abdelkb.github.io/goodbitee/img/Logo goodbite.png" height="50" width="auto"> </div>
+        <div id="loading-spinner"> </div>
+    </div>
+
+    <!-- Barre de navigation -->
+    
+
+    <nav class="scrollable-nav navbar navbar-expand-lg" >
+        <ul class="nav-list fixed-top" style="background-color: #1f1f1f;">                
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" onclick="changeCategory('salade')">Salades</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="changeCategory('poulet')">Plats de Poulet</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="changeCategory('viande')">Plats de Viande</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="changeCategory('poisson')">Plats de Poisson</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="changeCategory('pizza')">Pizza</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="changeCategory('pasta')">Pasta</a>
+                </li> 
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="changeCategory('tacos')">Tacos | Sandwichs | Panini</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="changeCategory('burger')">Burgers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="changeCategory('jus')">Jus | Boisson</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="changeCategory('supp')">Dessert</a>
+                </li>
+                
+                <!-- Ajouter d'autres catégories si nécessaire -->
+            </ul>
+            <a style="padding-bottom: 15px; color: #FFB700;background-color: #1f1f1f; width: 100vmax;" class="navbar-expand-lg navbar-brand fixed-top" href="https://abdelkb.github.io/goodbitee/index.html">
+                <span style="margin: 7px;"><img src="https://abdelkb.github.io/goodbitee/img/back.png" style="width: 35px; height: auto;"> </span>
+                <img src="https://github.com/abdelkb/goodbite/blob/main/img/Logo%20goodbite.png?raw=true" height="30" width="auto" alt=""><span id="title"> Restaurant GOODBITE</span>
+            </a>
+    
+    </nav> 
+ 
+
+
+
+    <!-- Slider d'images -->
+    <div id="slider" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner" id="slider-content">
+            <!-- Contenu du slider sera rempli dynamiquement avec JavaScript -->
+        </div>
+        <a class="carousel-control-prev" href="#slider" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Précédent</span>
+        </a>
+        <a class="carousel-control-next" href="#slider" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Suivant</span>
+        </a>
+    </div>
+
+    <!-- Ajouter les liens vers les fichiers JavaScript de jQuery et Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function changeCategory(category) {
+            // Remplacez ces données factices par les données réelles de votre site
+            var categoryData = {
+                pizza: [
+                    { image: 'https://abdelkb.github.io/goodbitee/img/pizza/1.jpg', name: 'Pizza Margherita', price: 'PETITE: 35 DH | GRANDE: 55 DH', description:'SAUCE TOMATE - MOZARELLA' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/pizza/2.jpg', name: 'Pizza GOODBITE', price: 'PETITE: 43 DH | GRANDE: 65 DH', description:'SAUCE TOMATE - MOZARELLA - POULET - POIVRONS' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/pizza/3.jpg', name: 'Pizza Bolognaise', price: 'PETITE: 46 DH | GRANDE: 65 DH', description:'SAUCE TOMATE - MOZARELLA - VIANDE HACHEE - CAMPIGNONS - POIVRONS' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/pizza/4.jpg', name: 'Pizza 4 Fromages', price: 'PETITE: 46 DH | GRANDE: 65 DH', description:'SAUCE TOMATE - MOZARELLA - RICOTTA - PARMESAN - FROMAGE ROUGE' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/pizza/5.jpg', name: 'Pizza Thon', price: 'PETITE: 48 DH | GRANDE: 68 DH', description:'SAUCE TOMATE - MOZARELLA - THON' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/pizza/6.jpg', name: 'Pizza 6 Légumes', price: 'PETITE: 45 DH | GRANDE: 68 DH', description:'SAUCE TOMATE - MOZARELLA - BROCCOLI - EPINARD - MAIS - POIVRON - CHAMPIGNON - TOMATES' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/pizza/7.jpg', name: 'Pizza Fruits de Mèr', price: 'PETITE: 55 DH | GRANDE: 75 DH', description:'SAUCE TOMATE - MOZARELLA - CREVETTES - CALAMARS' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/pizza/8.jpg', name: 'Pizza 4 Saisons', price: 'PETITE: 59 DH | GRANDE: 84 DH', description:'SAUCE TOMATE - MOZARELLA - CREVETTES - CALAMARS - POULET - VIANDE HACHEE - POIVRON - CHAMPIGNONS' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/pizza/9.jpg', name: 'Pizza C.C.C. Poulet', price: 'PETITE: 60 DH | GRANDE: 80 DH', description:'CREME FRECHE - CRABE - CHAMPIGNONS - POULET - MOZARELLA - PARMESAN' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/pizza/10.jpg', name: 'C.C.C. Fruits de Mer', price: 'PETITE: 65 DH | GRANDE: 85 DH', description:'CREME FRECHE - CRABE - CREVETTES - CALAMARS - MOZARELLA - PARMESAN' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/pizza/11.jpg', name: 'Pizza Royale', price: 'PETITE: 70 DH | GRANDE: 110 DH', description:'SAUCE TOMATE - MOZARELLA - CREVETTES - CALAMARS - CRABE - SAUCISSES - VIANDE HACHEE - POULET - POIVRON - CHAMPIGNON - BROCCOLI - TOMATE' },
+                    // Ajouter d'autres pizzas si nécessaire
+                ],
+                burger: [
+                    { image: 'https://abdelkb.github.io/goodbitee/img/burger/1.JPG', name: 'Chicken Burger', price: '41 DH', description:'FROMAGE - LAITUE - TOMATES' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/burger/2.JPG', name: 'Cheese Burger', price: '43 DH', description:'FROMAGE - LAITUE - TOMATES' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/burger/3.JPG', name: 'Campagne Burger', price: '45 DH', description:'CHAMPIGNONS - OIGNONS - FROMAGE - LAITUE - TOMATES' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/burger/4.JPG', name: 'Geant Burger', price: '67 DH', description:'DOUBLE BURGER - FROMAGE - LAITUE - TOMATES' },
+                    // Ajouter d'autres burgers si nécessaire
+                ],
+                pasta: [
+                    { image: 'https://abdelkb.github.io/goodbitee/img/pasta/1.JPG', name: 'Spaghetti Bolognaise', price: '62 DH', description:'SAUCE TOMATE - VIANDE HACHEE - PARMESAN - FROMAGE' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/pasta/2.JPG', name: 'Tagliatelle Alfredo Poulet', price: '88 DH', description:'SAUCE CREME - POULET - PARMESAN' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/pasta/3.JPG', name: 'Tagliatelle Alfredo Poulet - Brocolli', price: '98 DH', description:'SAUCE CREME - POULET - BROCOLLI - PARMESAN' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/pasta/4.JPG', name: 'Tagliatelle Alfredo Fruits de Mer', price: '110 DH', description:'SAUCE CREME - CRABE - CREVETTE - CALAMARS - PARMESAN' },
+                    // Ajouter d'autres pâtes si nécessaire
+                ],
+                poulet: [
+                    { image: 'https://abdelkb.github.io/goodbitee/img/poulet/1.jpg', name: 'Les Ailes de Poulet', price: '32 DH', description:'SAUCE EPICEE - FROMAGE BLEU' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/poulet/2.jpg', name: 'Filet de Poulet', price: '37 DH', description:'FRITES - LEGUMES DU JOUR - VERMICELLE' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/poulet/3.jpg', name: 'Quart de Poulet', price: '41 DH', description:'FRITES - LEGUMES DU JOUR - VERMICELLE' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/poulet/4.jpg', name: 'Poulet Pané', price: '41 DH', description:'FRITES - LEGUMES DU JOUR - VERMICELLE' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/poulet/5.jpg', name: 'Poulet Cutlet', price: '48 DH', description:'SAUCE TOMATES - LEGUMES DU JOUR' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/poulet/6.jpg', name: 'Plat de Dinde', price: '55 DH', description:'FRITES - LEGUMES DU JOUR - SALADE' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/poulet/7.jpg', name: 'Poulet Parmesan', price: '55 DH', description:'SAUCE TOMATES - FROMAGE - PARMESAN - LEGUMES DU JOUR' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/poulet/8.jpg', name: 'Poulet Milanaise', price: '58 DH', description:'ROQUETTE - TOMATES - OIGNONS - VINAIGRETTE BALSAMIC' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/poulet/9.jpg', name: 'Poulet aux Legumes', price: '65 DH', description:'LEGUMES SAUTES - RICOTTA - OLIVES' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/poulet/10.jpg', name: 'Poulet C.C.C.', price: '75 DH', description:'CHAMPIGNONS - CRABE - CREME FRECHE - LEGUMES DU JOUR' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/poulet/11.jpg', name: 'Demi Poulet', price: '79 DH', description:'FRITES - LEGUMES DU JOUR - VERMICELLE' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/poulet/12.jpg', name: 'Poulet Entier', price: '157 DH', description:'FRITES - LEGUMES DU JOUR - VERMICELLE' },
+                    // Ajouter d'autres éléments de poulet si nécessaire
+                ],
+                viande: [
+                    { image: 'https://abdelkb.github.io/goodbitee/img/viande/1.JPG', name: 'Plat de Viande Hachee', price: '59 DH', description:'FRITES - LEGUMES DU JOUR - SALADE' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/viande/2.JPG', name: 'Plat de Saucisses', price: '60 DH', description:'FRITES - LEGUMES DU JOUR - SALADE' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/viande/3.JPG', name: 'Plat Mixte', price: '72 DH', description:'FRITES - LEGUMES DU JOUR - SALADE' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/viande/4.JPG', name: 'Steak Legumes Sautes', price: '83 DH', description:'LEGUMES SAUTES - SALADE' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/viande/5.JPG', name: 'Steak C.C.C.', price: '110 DH', description:'CREME FRECHE - CRABE - CHAMPIGNONS - LEGUMES DU JOUR' },
+                    // Ajouter d'autres éléments de viande si nécessaire
+                ],
+                poisson: [
+                    { image: 'https://abdelkb.github.io/goodbitee/img/fish/1.jpg', name: 'Merlan Frit', price: '90 DH', description:'FILET DE MERLAN - LEGUMES DU JOUR - BOULETTE DU RIZ AU FROMAGE - FRITES - SAUCE FROMAGE' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/fish/2.jpg', name: 'Merlan Grillé', price: '90 DH', description:'FILET DE MERLAN - LEGUMES - SALADE' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/fish/3.jpg', name: 'Saumon Grillé', price: '120 DH', description:'FILET DE SAUMON - LEGUMES - SALADE' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/fish/4.jpg', name: 'Gambas et Calamars', price: '110 DH', description:'GAMBAS - CALAMARS - LEGUMES DU JOUR - BOULETTE DU RIZ AU FROMAGE - FRITES - SAUCE FROMAGE' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/fish/5.jpg', name: 'Plat de Poisson Grillé', price: '140 DH', description:'SAUMON - MERLAN - GAMBAS - OMBRINE - LEGUMES - SALADE' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/fish/6.jpg', name: 'Friture de Poisson', price: '140 DH', description:'MERLAN - GAMBAS - OMBRINE - CALAMARS - LEGUMES DU JOUR - BOULETTE DU RIZ AU FROMAGE - FRITES - SAUCE FROMAGE' },
+                    // Ajouter d'autres éléments de poisson si nécessaire
+                ],
+                jus: [
+                    { image: 'https://abdelkb.github.io/goodbitee/img/jus/1p.jpg', name: 'Eau Minerale 500 CL', price: '5 DH', description:' ' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/jus/1.JPG', name: 'Eau Minerale 1L', price: '15 DH', description:' ' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/jus/2.JPG', name: 'Soda Canette', price: '15 DH', description:' ' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/jus/3.JPG', name: 'Café', price: '12 DH', description:' ' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/jus/4.JPG', name: "Jus D'orange", price: '15 DH', description:' ' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/jus/5.JPG', name: "Jus De Banane", price: '15 DH', description:' ' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/jus/6.JPG', name: "Jus De Pomme", price: '15 DH', description:' ' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/jus/7.JPG', name: "Jus D'avocat", price: '19 DH', description:' ' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/jus/8.JPG', name: "Jus De Fraise", price: '17 DH', description:' ' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/jus/9.JPG', name: "Jus De Prume", price: '17 DH', description:' ' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/jus/10.JPG', name: "Jus De Poire", price: '17 DH', description:' ' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/jus/11.JPG', name: "Jus D'Amande", price: '21 DH', description:' ' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/jus/12.JPG', name: "Jus De Citron", price: '15 DH', description:' ' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/jus/13.JPG', name: "Jus D'Avocat Oreo", price: '18 DH', description:' ' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/jus/14.JPG', name: "Jus De Fruits Secs", price: '21 DH', description:' ' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/jus/15.JPG', name: "Jus Zaazaa", price: '28 DH', description:' ' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/jus/16.JPG', name: "Jus D'Ananas", price: '20 DH', description:' ' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/jus/17.JPG', name: "Jus De Mangue", price: '20 DH', description:' ' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/jus/18.JPG', name: "Jus De Papaye", price: '20 DH', description:' ' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/jus/19.JPG', name: "Jus De Kiwi", price: '20 DH', description:' ' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/jus/20.JPG', name: "Jus Panaché", price: '21 DH', description:' ' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/jus/21.JPG', name: "Jus Royal", price: '24 DH', description:' ' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/jus/22.JPG', name: "Jus Goodbite", price: '23 DH', description:' ' },
+                    // Ajouter d'autres jus si nécessaire
+                ],
+                supp: [
+                    { image: 'https://abdelkb.github.io/goodbitee/img/supp/1.JPG', name: "Salade de Fruits à L'orange", price: '23 DH', description:' ' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/supp/2.JPG', name: "Salade de Fruits à L'avocat", price: '26 DH', description:' ' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/supp/3.JPG', name: "Salade de Fruits au Raïb", price: '24 DH', description:' ' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/supp/4.JPG', name: 'Tiramisu', price: '15 DH', description:' ' },
+                    // Ajouter d'autres suppléments si nécessaire
+                ],
+                tacos: [
+                    { image: 'https://abdelkb.github.io/goodbitee/img/tacos/1.JPG', name: 'Tacos Poulet', price: '45 DH', description:'SAUCE AU CHOIX - FRITES' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/tacos/1.JPG', name: 'Tacos Poulet Pane', price: '45 DH', description:'SAUCE AU CHOIX - FRITES' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/tacos/2.JPG', name: 'Tacos Dinde', price: '45 DH', description:'SAUCE AU CHOIX - FRITES' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/tacos/3.JPG', name: 'Tacos Viande Hachee', price: '47 DH', description:'SAUCE AU CHOIX - FRITES' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/tacos/4.JPG', name: 'Tacos Saucisses', price: '47 DH', description:'SAUCE AU CHOIX - FRITES' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/tacos/5.JPG', name: 'Tacos Mixte', price: '49 DH', description:'SAUCE AU CHOIX - FRITES' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/tacos/6.JPG', name: 'Tacos Fruits de Mer', price: '55 DH', description:'SAUCE AU CHOIX - FRITES' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/tacos/7.JPG', name: 'Sandwich Poulet', price: '39 DH', description:'SAUCE - FRITES' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/tacos/7.JPG', name: 'Sandwich Dinde', price: '39 DH', description:'SAUCE - FRITES' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/tacos/8.JPG', name: 'Sandwich Viande Hachee', price: '41 DH', description:'SAUCE - FRITES' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/tacos/9.JPG', name: 'Sandwich Saucisses', price: '41 DH', description:'SAUCE - FRITES' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/tacos/10.JPG', name: 'Sandwich Mixte', price: '42 DH', description:'SAUCE - FRITES' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/tacos/11.JPG', name: 'Sandwich Shawarma', price: '39 DH', description:'SAUCE - FRITES' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/tacos/12.JPG', name: 'Sandwich Cheese Steak', price: '49 DH', description:'SAUCE - FRITES' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/tacos/13.JPG', name: 'Sandwich Fruits de Mer', price: '49 DH', description:'SAUCE - FRITES' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/tacos/14.JPG', name: 'Panini Poulet', price: '39 DH', description:'SAUCE - FRITES' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/tacos/15.JPG', name: 'Panini Dinde', price: '39 DH', description:'SAUCE - FRITES' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/tacos/16.JPG', name: 'Panini Viande Hachee', price: '41 DH', description:'SAUCE - FRITES' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/tacos/17.JPG', name: 'Panini Saucisses', price: '41 DH', description:'SAUCE - FRITES' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/tacos/18.JPG', name: 'Panini Mixte', price: '42 DH', description:'SAUCE - FRITES' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/tacos/19.JPG', name: 'Panini Fruits de Mer', price: '49 DH', description:'SAUCE - FRITES' },
+                    // Ajouter d'autres types de tacos si nécessaire
+                ],
+                salade: [
+                    { image: 'https://abdelkb.github.io/goodbitee/img/Salade/1.jpg', name: 'Salade Maison', price: '26 DH', description:'LAITUE - TOMATE - POIVRON - OIGNON - CONCOMBRE - VINAIGRE DE MAISON' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/Salade/2.jpg', name: 'Salade César', price: '37 DH', description:'-POULET GRILLE - LAITUE - CROUTONS - PARMESAN - SAUCE CESAR' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/Salade/3.jpg', name: 'Salade de Thon', price: '37 DH', description:'THON-LAITUE-POIVRON-OIGNONS-TOMATES' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/Salade/4.jpg', name: 'Salade Poulet', price: '39 DH', description:'POULET PANÉ - LAITUE - POIVRON - OIGNONS - TOMATES - FROMAGE ROUGE' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/Salade/5.jpg', name: 'Salade Chef', price: '39 DH', description:'-VARIETE DE LEGUMES -THON -RIZ -MAÏS -FROMAGE ROUGE' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/Salade/6.jpg', name: 'Salade Végetarienne', price: '41 DH', description:'LÉGUMES VARIÉS - ÉPINARD , BROCCOLIS - CHAMPIGNONS - RICOTTA' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/Salade/7.jpg', name: 'Salade Calamars', price: '42 DH', description:'CALAMARS PANÉ - LAITUE - POIVRON - OIGNONS - TOMATES - FROMAGE ROUGE' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/Salade/8.jpg', name: 'Salade Chef - Poulet', price: '47 DH', description:'POULET -VARIETE DE LEGUMES -THON -RIZ -MAÏS -FROMAGE ROUGE' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/Salade/9.jpg', name: 'Salade Italienne', price: '63 DH', description:'CREVETTES ET CALAMARS - LAITUE ROQUETTE - OIGNONS - TOMATES - VINAIGRETTE MAISON' },
+                    { image: 'https://abdelkb.github.io/goodbitee/img/Salade/10.jpg', name: 'Salade Goodbite', price: '67 DH', description:'- FRUITS DE MER - LAITUE - FROMAGE ROUGE - VINAIGRETTE MAISON' },
+                    // Ajouter d'autres types de salades si nécessaire
+                ],
+            };
+
+            var sliderContent = document.getElementById('slider-content');
+            sliderContent.innerHTML = '';
+
+             categoryData[category].forEach(function (item) {
+             var slide = document.createElement('div');
+             slide.className = 'carousel-item';
+             if (sliderContent.children.length === 0) {
+            slide.classList.add('active');
+
+            var loadingOverlay = document.getElementById('loading-overlay');
+            loadingOverlay.style.display = 'none';
+        }
+
+        // Div pour l'image
+        var imgDiv = document.createElement('div');
+        imgDiv.className = 'slider-image-container';
+
+        var img = document.createElement('img');
+        img.src = item.image;
+        img.className = 'd-block w-100';
+        img.alt = item.name;
+
+        imgDiv.appendChild(img);
+
+        // Div pour le texte
+        var textDiv = document.createElement('div');
+        textDiv.className = 'carousel-caption text-left'; // Aligner le texte à gauche
+
+        textDiv.innerHTML = '<h5>' + item.name + '</h5><h6>' + item.price + '</h6><p>' + item.description + '</p>';
+
+        // Ajouter les divs à la diapositive
+        slide.appendChild(imgDiv);
+        slide.appendChild(textDiv);
+
+        // Ajouter la diapositive au contenu du slider
+        sliderContent.appendChild(slide);
+    });
+
+    // Réduire la barre de navigation après avoir choisi une catégorie
+    var navbarToggler = document.querySelector('.navbar-toggler');
+    var navbarCollapse = document.querySelector('.navbar-collapse');
+    navbarToggler.classList.add('collapsed');
+    navbarCollapse.classList.remove('show');
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+            // Laissez la page de chargement visible au début
+            var loadingOverlay = document.getElementById('loading-overlay');
+            loadingOverlay.style.display = 'flex';
+
+            // Appel de la fonction changeCategory après un délai simulé (1000ms ici, ajustez selon vos besoins)
+            setTimeout(function () {
+                changeCategory('salade');
+            }, 1500);
+        });
+    </script>
+</body>
+
+</html>
